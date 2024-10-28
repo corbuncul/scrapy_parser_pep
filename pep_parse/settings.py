@@ -5,13 +5,13 @@ NEWSPIDER_MODULE = 'pep_parse.spiders'
 
 
 ITEM_PIPELINES = {
-   'pep_parse.pipelines.PepParsePipeline': 300,
+    'pep_parse.pipelines.PepParsePipeline': 300,
 }
 
 FEEDS = {
     'results/pep_%(time)s.csv': {
         'format': 'csv',
         'fields': ['number', 'name', 'status'],
-        'overwrite': True
+        'overwrite': True,
     },
 }
