@@ -11,8 +11,7 @@ class PepParsePipeline:
 
     def __init__(self):
         self.file_path = os.path.join(BASE_DIR, RESULTS_DIR)
-        if not os.path.isdir(self.file_path):
-            os.mkdir(self.file_path)
+        os.makedirs(self.file_path, exist_ok=True)
 
     def open_spider(self, spider):
         """Начальные установки для сохранения статистики."""
