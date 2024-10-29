@@ -1,17 +1,19 @@
-BOT_NAME = 'pep_parse'
+from pep_parse.constants import BOT_NAME, FIELDS, RESULTS_DIR, SPIDER_MODULE
 
-SPIDER_MODULES = ['pep_parse.spiders']
-NEWSPIDER_MODULE = 'pep_parse.spiders'
 
+SPIDER_MODULES = [f'{BOT_NAME}.{SPIDER_MODULE}']
+
+NEWSPIDER_MODULE = f'{BOT_NAME}.{SPIDER_MODULE}'
 
 ITEM_PIPELINES = {
-    'pep_parse.pipelines.PepParsePipeline': 300,
+    f'{BOT_NAME}.pipelines.PepParsePipeline': 300,
 }
 
 FEEDS = {
-    'results/pep_%(time)s.csv': {
+    RESULTS_DIR
+    + '/pep_%(time)s.csv': {
         'format': 'csv',
-        'fields': ['number', 'name', 'status'],
+        'fields': FIELDS,
         'overwrite': True,
     },
 }

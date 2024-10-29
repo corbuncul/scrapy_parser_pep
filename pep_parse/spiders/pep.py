@@ -4,8 +4,12 @@ import scrapy
 
 from pep_parse.constants import (
     ALLOWED_DOMAINS_PEP,
-    START_URLS_PEP,
+    FIELD_NAME,
+    FIELD_NUMBER,
+    FIELD_STATUS,
     NAME_SPIDER_PEP,
+    PATTERN,
+    START_URLS_PEP,
 )
 from pep_parse.items import PepParseItem
 
@@ -25,13 +29,12 @@ class PepSpider(scrapy.Spider):
 
     def parse_pep(self, response):
         """Сбор информации о номерах, именах и статусах документов PEP."""
-        pattern = r'^PEP (?P<number>\d+) . (?P<name>.+)\s\|\s.+$'
         title = response.css('title::text').get()
-        number_name_match = re.match(pattern, title)
+        number_name_match = re.match(PATTERN, title)
         data = {
-            'number': number_name_match.group('number'),
-            'name': number_name_match.group('name'),
-            'status': response.css(
+            FIELD_NUMBER: number_name_match.group(FIELD_NUMBER),
+            FIELD_NAME: number_name_match.group(FIELD_NAME),
+            FIELD_STATUS: response.css(
                 'dt:contains("Status") + dd abbr::text'
             ).get(),
         }
